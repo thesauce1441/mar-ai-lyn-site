@@ -1,37 +1,55 @@
+// api/tokens.js
 export default async function handler(req, res) {
   try {
-    const urlObj = new URL(req.url, "https://example.com");
-    const collection = urlObj.searchParams.get("collection") || "mar-ai-lyn";
+    // Read query safely in Vercel
+    const base = `https://${req.headers.host}`;
+    const u = new URL(req.url, base);
+    const collection = u.searchParams.get("collection") || "mar-ai-lyn";
 
-    const url = `https://api.reservoir.tools/tokens/v6?collection=${encodeURIComponent(collection)}&limit=50&includeAttributes=false`;
+    const upstream =
+      `https://api.reservoir.tools/tokens/v6?collection=${encodeURIComponent(collection)}` +
+      `&limit=50&includeAttributes=false`;
 
-    const response = await fetch(url, {
-      headers: {
-        "x-api-key": process.env.RESERVOIR_API_KEY
-      }
+    const apiKey = process.env.RESERVOIR_API_KEY;
+
+    if (!apiKey) {
+      return res.status(500).json({ error: "Missing RESERVOIR_API_KEY env var" });
+    }
+
+    const r = await fetch(upstream, {
+      headers: { "x-api-key": apiKey }
     });
 
-    if (!response.ok) {
-      const text = await response.text();
-      return res.status(response.status).json({
+    const raw = await r.text();
+
+    // If Reservoir returns an error, show it directly
+    if (!r.ok) {
+      return res.status(r.status).json({
         error: "Reservoir request failed",
-        status: response.status,
-        details: text
+        status: r.status,
+        upstream,
+        details: raw
       });
     }
 
-    const data = await response.json();
+    const data = JSON.parse(raw);
 
-    const items = (data.tokens || []).map(t => ({
-      name: t.token?.name || "",
-      image: t.token?.image || "",
-      opensea_url: t.token?.openseaUrl || "",
-      createdAt: t.token?.createdAt || "",
-      isMinted: true
-    }));
+    const items = (data.tokens || [])
+      .map((x) => {
+        const t = x.token || {};
+        return {
+          name: t.name || "",
+          image: t.image || t.imageSmall || t.imageLarge || "",
+          opensea_url: t.openseaUrl || ""
+        };
+      })
+      .filter((i) => i.image && i.opensea_url);
 
-    res.status(200).json({ items });
-  } catch (err) {
-    res.status(500).json({ error: String(err) });
+    return res.status(200).json({ items, count: items.length });
+  } catch (e) {
+    return res.status(500).json({
+      error: "Function crashed",
+      message: String(e)
+    });
   }
 }
