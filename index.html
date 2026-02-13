@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>MAR-AI-LYN</title>
+  <meta name="description" content="MAR-AI-LYN — archive + latest drops. Every piece links to OpenSea." />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="header__inner">
+      <div class="brand">
+        <div class="brand__title" id="siteTitle">MAR-AI-LYN</div>
+        <div class="brand__tag" id="siteTag">Pop • Process • Archive</div>
+      </div>
+
+      <nav class="nav">
+        <a href="#gallery" class="nav__link">Gallery</a>
+        <a href="#drops" class="nav__link">Drops</a>
+        <a href="#links" class="nav__link">Links</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="hero">
+      <div class="hero__left">
+        <h1 class="hero__h1" id="headline">MAR-AI-LYN</h1>
+        <p class="hero__p" id="subcopy">
+          Every piece links to OpenSea. Latest auctions + mints live on Transient.
+        </p>
+
+        <div class="hero__cta">
+          <a class="btn btn--primary" id="btnOpenSea" target="_blank" rel="noreferrer">View Collection ↗</a>
+          <a class="btn" id="btnTransient" target="_blank" rel="noreferrer">Latest Drops ↗</a>
+        </div>
+
+        <div class="hero__meta" id="statusline">
+          <span class="pill" id="pillCount">0 pieces</span>
+          <span class="pill" id="pillMode">Loading…</span>
+        </div>
+      </div>
+
+      <div class="hero__right">
+        <div class="controls">
+          <button class="chip" id="toggleSort" type="button">Sort: Newest</button>
+          <button class="chip" id="toggleMinted" type="button">Minted: All</button>
+          <button class="chip" id="toggleCompact" type="button">View: Grid</button>
+        </div>
+
+        <div class="search">
+          <input id="searchInput" class="search__input" placeholder="Search titles (e.g., MAR_028)..." />
+        </div>
+      </div>
+    </section>
+
+    <section id="gallery" class="section">
+      <div class="section__top">
+        <h2 class="section__h2">Gallery</h2>
+        <div class="section__sub">Auto-loads from MAR-AI-LYN (or falls back to your manual list)</div>
+      </div>
+
+      <div id="grid" class="grid"></div>
+      <div id="emptyState" class="empty" hidden>
+        No results. Try clearing search or switching filters.
+      </div>
+    </section>
+
+    <section id="drops" class="section">
+      <div class="section__top">
+        <h2 class="section__h2">Latest Drops & Auctions</h2>
+        <div class="section__sub">Pulled from your data.json (you control these)</div>
+      </div>
+      <div id="dropsList" class="list"></div>
+    </section>
+
+    <section id="links" class="section">
+      <div class="section__top">
+        <h2 class="section__h2">Links</h2>
+        <div class="section__sub">Quick jump buttons</div>
+      </div>
+      <div id="linkButtons" class="links"></div>
+    </section>
+
+    <footer class="footer">
+      <div class="footer__inner">
+        <div class="footer__left">© <span id="year"></span> MAR-AI-LYN</div>
+        <div class="footer__right" id="footerNote"></div>
+      </div>
+    </footer>
+  </main>
+
+  <script src="./app.js"></script>
+</body>
+</html>

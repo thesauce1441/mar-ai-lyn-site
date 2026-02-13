@@ -1,0 +1,38 @@
+{
+  "site": {
+    "title": "MAR-AI-LYN",
+    "tagline": "Pop • Process • Archive",
+    "headline": "MAR-AI-LYN",
+    "opensea_collection_url": "https://opensea.io/collection/mar-ai-lyn",
+    "transient_hub_url": "https://www.transient.xyz/%40Andrewribt",
+    "links": [
+      { "label": "OpenSea Collection ↗", "url": "https://opensea.io/collection/mar-ai-lyn" },
+      { "label": "Transient: Latest Drops ↗", "url": "https://www.transient.xyz/%40Andrewribt" }
+    ],
+
+    "auto": {
+      "enabled": true,
+      "collectionSlug": "mar-ai-lyn",
+      "apiBase": "/api"
+    }
+  },
+
+  "drops": [
+    {
+      "date": "2026-02-12",
+      "title": "Latest auction / mint goes here (edit this anytime)",
+      "url": "https://www.transient.xyz/%40Andrewribt"
+    }
+  ],
+
+  "archive_fallback": [
+    {
+      "date": "2026-02-12",
+      "title": "MAR_028 #1",
+      "image": "https://picsum.photos/seed/placeholder1/900/900",
+      "opensea_url": "https://opensea.io/collection/mar-ai-lyn",
+      "minted": true,
+      "tags": ["MAR-AI-LYN"]
+    }
+  ]
+}
